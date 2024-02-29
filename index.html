@@ -49,30 +49,6 @@
     const likesButtonElement = document.querySelectorAll(".like-button");
     const likesCounterElement = document.querySelectorAll(".likes-counter");
 
-    //function input() {
-    //  if (nameInputElement == "" || textInputElement == ""){
-    //    buttonElement.setAttribute("disabled", true);
-    //  } else {
-    //    buttonElement.removeAttribute("disabled");
-    //  }
-    //}
-    //nameInputElement.addEventListener("input", input);
-    //textInputElement.addEventListener("input", input);
-
-
-    //buttonElement.addEventListener('click', () => {
-    //  nameInputElement.classList.remove("error");
-    //  textInputElement.classList.remove("error");
-    //  if (nameInputElement.value === ""){
-    //    nameInputElement.classList.add("error");
-    //  return;
-    //  } else if (textInputElement.value  ===""){
-    //    textInputElement.classList.add("error")
-    //   return;
-    //  }
-    //  renderCommentsList()
-    //})
-
 
     const commentsListData = [{
         date: "03.04.21 22:32",
@@ -108,28 +84,10 @@
     }
   };
 
-    
-    const answerCommentListener = () => {
-    const commentsElement = document.querySelectorAll(".comment");
-      for (const commentElement of commentsElement) {
-       commentElement.addEventListener("click", () => {
-          const index = commentElement.dataset.index;
-          commentElement.value = commentsListData[index].comment + commentsListData[index].name;
-        console.log("index");
-        //renderCommentsList();
-        })
-      }
-    };
-    
-    answerCommentListener();
-    initEventListener();
-
 
     const renderCommentsList = () => {
       const commentsListHTML = commentsListData.map((com, index) => {
-        //const oldListElement = commentList.innerHTML;
-        //commentList.innerHTML = oldListElement +  `
-        //<li class="comment">  
+        // 
         return `<li class="comment" id="comment" data-index="${index}">
           <div class="comment-header" >
             <div>${com.name}</div>
@@ -153,25 +111,43 @@
         initEventListener();
     }
       renderCommentsList(); 
-      
-    buttonElement.addEventListener("click",
-        () => {
-// Подсветка ошибочных комментариев
-            nameInputElement.classList.remove("error");
-            textInputElement.classList.remove("error");
 
-            if (nameInputElement.value === '') {
+
+    const answerCommentListener = () => {
+    const commentsElement = document.querySelectorAll(".comment");
+      for (const commentElement of commentsElement) {
+        commentElement.addEventListener("click", () => {
+          const index = commentElement.dataset.index;
+          textInputElement.value =
+          `QUOTE_BEGIN ${commentsListData[index].name}: 
+          ${commentsListData[index].comment} QUOTE_END`;
+          renderCommentsList();
+        })
+      }
+
+    };
+
+    answerCommentListener();
+
+      
+    buttonElement.addEventListener("click", () => {
+      
+// Подсветка ошибочных комментариев
+          nameInputElement.classList.remove("error");
+          textInputElement.classList.remove("error");
+            if (nameInputElement.value.trim() === '') {
                 nameInputElement.classList.add("error");
-                if (textInputElement.value === '') {
+                if (textInputElement.value.trim() === '') {
                     textInputElement.classList.add("error");
                     return;
                 };
                 return;
             };
+
             const oldListHtml = commentsListElements.innerHTML;
             commentsListData.push({
-                name: nameInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
-                comment: textInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+                name: nameInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("&", "&amp;"),
+                comment: textInputElement.value.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("QUOTE_BEGIN", "<div class='quote' white-space: pre-line>").replaceAll("QUOTE_END", "</div>"),
                 date: (new Date()).toLocaleString(),
                 like: 0,
                 isLike: false,
@@ -181,7 +157,7 @@
             nameInputElement.value = '';
             textInputElement.value = '';
             likesCounterElement.value = ""
-            likesButtonElement.isLike = true
+            //likesButtonElement.isLike = true 
         });
 
     console.log("It works!");
