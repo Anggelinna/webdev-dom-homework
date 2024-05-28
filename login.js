@@ -16,8 +16,11 @@ export const renderLogin = () => {
           placeholder="Пароль"
         />
       </div>
+      <div>
       <br />
       <button class="button" id="login-button">Войти</button>
+      </div>
+      
       <button class="button-reg">Зарегистрироваться</button>
     </div>`
      //создаем элемент app
