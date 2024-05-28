@@ -32,7 +32,7 @@ export const renderComments = ({comments}) => {
       type="text"
       class="add-form-name"
       placeholder="Введите ваше имя"
-      value=${user}
+      "value"=${user}
       disabled
     />
     <textarea
@@ -43,10 +43,9 @@ export const renderComments = ({comments}) => {
     ></textarea>
     <div class="add-form-row">
       <button class="add-form-button">Написать</button>
-      <button class="delete-form-button">Удалить последний комментарий</button>
     </div>
   </div>`
-  
+  //button class="delete-form-button">Удалить последний комментарий</button>
   appElement.innerHTML = `
     <ul class="comments" id="list-comments" >${commentsHtml}</ul>
     ${token ? formHtml : '<p class="login-btn">Чтобы добавить комментарий, авторизуйтесь</p>'}

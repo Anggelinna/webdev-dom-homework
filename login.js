@@ -16,8 +16,11 @@ export const renderLogin = () => {
           placeholder="Пароль"
         />
       </div>
+      <div>
       <br />
       <button class="button" id="login-button">Войти</button>
+      </div>
+      
       <button class="button-reg">Зарегистрироваться</button>
     </div>`
      //создаем элемент app
@@ -40,7 +43,7 @@ buttonGet.addEventListener("click", () => {
         fetchPromiseGet();
     })
     .catch((error) => {
-     ///////////////// alert(error.message);
+     //////// alert(error.message);
       console.error("Произошла ошибка при установке имени пользователя:", error);
 });
 })
